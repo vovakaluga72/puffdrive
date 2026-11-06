@@ -1,0 +1,237 @@
+/* ==================================================================
+   Лицевая панель аппарата «Сухой туман».
+   Чёрная глянцевая панель, LED-табло с бегущей строкой,
+   две колонки кнопок-«пилюль» со светодиодами.
+   Используется в hero на главной и в конфигураторе (этап 3).
+   ================================================================== */
+
+.machine {
+    --machine-led: #ff6a3d;
+    position: relative;
+    width: min(100%, 380px);
+    padding: 18px 18px 14px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 30px 30px 20px 20px;
+    background:
+        linear-gradient(115deg, rgba(255, 255, 255, .07) 0%, rgba(255, 255, 255, 0) 32%),
+        linear-gradient(170deg, #1d1d22 0%, #08080a 55%, #111114 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .1),
+        inset 0 -20px 40px rgba(0, 0, 0, .6),
+        0 40px 80px -30px rgba(0, 0, 0, .9),
+        0 0 0 6px #050506,
+        0 0 0 7px rgba(255, 255, 255, .05);
+    isolation: isolate;
+}
+
+/* Глянцевый блик по диагонали */
+.machine::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(125deg, transparent 40%, rgba(255, 255, 255, .045) 48%, transparent 56%);
+    pointer-events: none;
+}
+
+/* ---------- LED-табло ---------- */
+.machine__led {
+    position: relative;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, .06);
+    border-radius: 10px;
+    background-color: #040405;
+    background-image: radial-gradient(rgba(255, 106, 61, .12) 1px, transparent 1.3px);
+    background-size: 4px 4px;
+    box-shadow: inset 0 0 18px rgba(0, 0, 0, .9), 0 0 24px -8px rgba(255, 106, 61, .35);
+    overflow: hidden;
+}
+.machine__led::after {
+    /* стекло табло */
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 45%);
+    pointer-events: none;
+}
+.machine__led-track {
+    display: flex;
+    width: max-content;
+    height: 100%;
+    align-items: center;
+    animation: led-marquee 16s linear infinite;
+}
+.machine__led-track span {
+    padding-right: 1.5em;
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    white-space: nowrap;
+    color: var(--machine-led);
+    text-shadow: 0 0 6px rgba(255, 106, 61, .9), 0 0 16px rgba(255, 106, 61, .5);
+}
+@keyframes led-marquee { to { transform: translateX(-50%); } }
+
+/* ---------- Панель кнопок ---------- */
+.machine__panel {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 14px;
+    margin-top: 18px;
+}
+.machine__col { display: grid; gap: 10px; align-content: start; }
+
+.pill {
+    --aroma: #3a3a42;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 40px;
+    padding: 0 12px 0 11px;
+    border: 1px solid rgba(255, 255, 255, .1);
+    border-radius: var(--radius-pill);
+    background: linear-gradient(180deg, #2a2a31 0%, #131316 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 4px 10px rgba(0, 0, 0, .55);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    font-weight: var(--fw-bold);
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-align: left;
+    transition: transform var(--dur-fast), border-color var(--dur), box-shadow var(--dur), background var(--dur);
+}
+.pill__led {
+    width: 9px; height: 9px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--aroma) 35%, #111);
+    box-shadow: inset 0 0 2px rgba(0, 0, 0, .6);
+    transition: background var(--dur), box-shadow var(--dur);
+}
+.pill.is-filled .pill__led {
+    background: var(--aroma);
+    box-shadow: 0 0 6px var(--aroma), 0 0 14px color-mix(in srgb, var(--aroma) 60%, transparent);
+}
+.pill__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill__num { font-size: 10px; color: var(--color-text-dim); font-variant-numeric: tabular-nums; }
+.pill:not(.is-filled) .pill__label { color: var(--color-text-dim); }
+
+/* Фиксированные функции */
+.pill--fixed { cursor: default; opacity: .92; }
+.pill--pause { --aroma: #f0b429; }
+.pill--tire  { --aroma: #d7dce2; }
+.pill--call  { --aroma: #e5484d; }
+.pill--fixed .pill__led { background: var(--aroma); box-shadow: 0 0 6px var(--aroma); }
+.pill__hint {
+    position: absolute;
+    left: 50%; bottom: calc(100% + 6px);
+    padding: 4px 8px;
+    border-radius: var(--radius-xs);
+    background: var(--color-surface-3);
+    color: var(--color-text-muted);
+    font-size: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, 4px);
+    transition: opacity var(--dur), transform var(--dur);
+    pointer-events: none;
+}
+.pill--fixed:hover .pill__hint { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- Блок оплаты ---------- */
+.machine__pay {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    margin-top: 4px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, .05);
+}
+.machine__qr {
+    width: 46px; height: 46px;
+    padding: 4px;
+    border-radius: 6px;
+    background: #f3efe8;
+    color: #0b0b0d;
+}
+.machine__qr svg { width: 100%; height: 100%; }
+.machine__cash { display: grid; align-content: center; gap: 8px; }
+.machine__slot {
+    height: 6px;
+    border-radius: 3px;
+    background: #000;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .9), 0 1px 0 rgba(255, 255, 255, .06);
+}
+.machine__slot--coin { width: 40%; }
+
+/* ---------- Низ корпуса и шланг ---------- */
+.machine__base {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, .06);
+    font-size: 10px;
+    font-weight: var(--fw-bold);
+    letter-spacing: var(--tracking-wider);
+    text-align: center;
+    color: var(--color-text-dim);
+}
+.machine__hose {
+    position: absolute;
+    top: 38%;
+    right: -46px;
+    width: 60px;
+    height: 46%;
+    border: 6px solid #232328;
+    border-left: 0;
+    border-radius: 0 60px 60px 0;
+    box-shadow: 6px 0 14px -6px rgba(0, 0, 0, .8);
+    pointer-events: none;
+}
+.machine__hose::after {
+    /* держатель ароматизатора */
+    content: '';
+    position: absolute;
+    right: -12px;
+    bottom: -26px;
+    width: 18px;
+    height: 46px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #3a3a42, #1b1b1f);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12);
+}
+
+/* ---------- Демо-режим (главная): светодиоды «бегают» по слотам ---------- */
+.machine--demo .pill.is-filled { animation: pill-active 7.2s var(--ease-in-out) infinite; animation-delay: calc(var(--i) * 1.2s); }
+@keyframes pill-active {
+    0%, 14%, 100% { border-color: rgba(255, 255, 255, .1); }
+    4%, 10% {
+        border-color: color-mix(in srgb, var(--aroma) 70%, transparent);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 0 22px -4px var(--aroma);
+    }
+}
+
+/* ---------- Интерактивный режим (конфигуратор) ---------- */
+.machine--interactive .machine__col--aromas .pill { cursor: pointer; }
+.machine--interactive .machine__col--aromas .pill:hover { border-color: var(--color-accent-line); transform: translateY(-1px); }
+.machine--interactive .machine__col--aromas .pill:active { transform: scale(.98); }
+.machine--interactive .pill:not(.is-filled) { border-style: dashed; border-color: rgba(255, 255, 255, .2); }
+.machine--interactive .pill.is-active {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft), 0 0 24px -6px var(--color-accent);
+}
+
+@media (min-width: 480px) {
+    .pill { font-size: 12px; min-height: 42px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .machine__led-track { animation: none; }
+}

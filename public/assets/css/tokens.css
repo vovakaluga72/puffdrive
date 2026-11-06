@@ -1,0 +1,135 @@
+/* ==================================================================
+   Puff Drive — дизайн-токены.
+   ВСЕ цвета, шрифты, отступы, радиусы, тени и анимации сайта задаются
+   здесь. Чтобы изменить дизайн, достаточно поправить этот файл.
+   ================================================================== */
+
+:root {
+    color-scheme: dark;
+
+    /* ---------- Цвета: основа (графит / чёрный) ---------- */
+    --color-bg:             #0b0b0d;
+    --color-bg-soft:        #0f0f12;
+    --color-surface:        #141417;
+    --color-surface-2:      #1a1a1f;
+    --color-surface-3:      #222228;
+    --color-surface-hover:  #1f1f25;
+    --color-border:         rgba(255, 255, 255, .07);
+    --color-border-strong:  rgba(255, 255, 255, .14);
+    --color-overlay:        rgba(6, 6, 8, .72);
+
+    /* ---------- Цвета: текст ---------- */
+    --color-text:           #f3efe8;
+    --color-text-muted:     #a8a39b;
+    --color-text-dim:       #6f6b65;
+    --color-text-inverse:   #0b0b0d;
+
+    /* ---------- Цвета: акцент (шампань / золото) ---------- */
+    --color-accent:         #c9a96e;
+    --color-accent-strong:  #e2c891;
+    --color-accent-deep:    #9a7a45;
+    --color-accent-soft:    rgba(201, 169, 110, .12);
+    --color-accent-line:    rgba(201, 169, 110, .32);
+    --gradient-accent:      linear-gradient(135deg, #f3dfb0 0%, #c9a96e 48%, #9a7a45 100%);
+    --gradient-accent-hover: linear-gradient(135deg, #f8e7c0 0%, #d6b67a 48%, #a9884f 100%);
+    --gradient-surface:     linear-gradient(160deg, #1b1b20 0%, #111114 100%);
+
+    /* ---------- Цвета: «дымчатый» вторичный акцент ---------- */
+    --color-smoke:          #9fb3c8;
+    --color-smoke-soft:     rgba(159, 179, 200, .1);
+
+    /* ---------- Цвета: статусы ---------- */
+    --color-sale:           #ff4d4f;
+    --color-sale-soft:      rgba(255, 77, 79, .14);
+    --color-success:        #3fb27f;
+    --color-success-soft:   rgba(63, 178, 127, .14);
+    --color-warning:        #f0b429;
+    --color-warning-soft:   rgba(240, 180, 41, .14);
+    --color-danger:         #e5484d;
+    --color-danger-soft:    rgba(229, 72, 77, .14);
+    --color-info:           #5b9cf0;
+    --color-info-soft:      rgba(91, 156, 240, .14);
+
+    /* ---------- Шрифты ---------- */
+    --font-display: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+    --font-sans:    'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+    --font-mono:    ui-monospace, 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+    /* Размеры шрифта (плавно растут от 360px к 1920px) */
+    --fs-2xs:     .6875rem;                                   /* 11px */
+    --fs-xs:      .75rem;                                     /* 12px */
+    --fs-sm:      .875rem;                                    /* 14px */
+    --fs-base:    1rem;                                       /* 16px */
+    --fs-md:      1.125rem;                                   /* 18px */
+    --fs-lg:      clamp(1.25rem, 1.15rem + .4vw, 1.5rem);
+    --fs-xl:      clamp(1.5rem, 1.25rem + 1vw, 2rem);
+    --fs-2xl:     clamp(2rem, 1.5rem + 2vw, 3rem);
+    --fs-3xl:     clamp(2.5rem, 1.7rem + 3.4vw, 4.25rem);
+    --fs-display: clamp(3rem, 1.8rem + 5.6vw, 6.5rem);
+
+    --lh-tight:  1.05;
+    --lh-snug:   1.25;
+    --lh-base:   1.6;
+
+    --fw-light:   300;
+    --fw-regular: 400;
+    --fw-medium:  500;
+    --fw-semibold: 600;
+    --fw-bold:    700;
+    --fw-black:   800;
+
+    --tracking-wide:  .14em;
+    --tracking-wider: .24em;
+
+    /* ---------- Отступы ---------- */
+    --space-1:  .25rem;
+    --space-2:  .5rem;
+    --space-3:  .75rem;
+    --space-4:  1rem;
+    --space-5:  1.25rem;
+    --space-6:  1.5rem;
+    --space-7:  2rem;
+    --space-8:  2.5rem;
+    --space-9:  3rem;
+    --space-10: 4rem;
+    --space-11: 5rem;
+    --space-12: 6rem;
+    --section-gap: clamp(4rem, 2.8rem + 5vw, 8.5rem);
+
+    /* ---------- Сетка ---------- */
+    --container: 1320px;
+    --gutter:    clamp(16px, 3.6vw, 40px);
+    --header-h:  72px;
+    --topbar-h:  36px;
+
+    /* ---------- Радиусы ---------- */
+    --radius-xs:   6px;
+    --radius-sm:   10px;
+    --radius-md:   14px;
+    --radius-lg:   22px;
+    --radius-xl:   32px;
+    --radius-pill: 999px;
+
+    /* ---------- Тени ---------- */
+    --shadow-sm:   0 1px 2px rgba(0, 0, 0, .4);
+    --shadow-md:   0 10px 30px -12px rgba(0, 0, 0, .6);
+    --shadow-lg:   0 30px 70px -24px rgba(0, 0, 0, .75);
+    --shadow-glow: 0 0 0 1px rgba(201, 169, 110, .25), 0 18px 50px -18px rgba(201, 169, 110, .45);
+    --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, .05);
+
+    /* ---------- Анимации ---------- */
+    --ease-out:    cubic-bezier(.22, 1, .36, 1);
+    --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+    --dur-fast:    160ms;
+    --dur:         320ms;
+    --dur-slow:    700ms;
+    --dur-reveal:  900ms;
+
+    /* ---------- Слои ---------- */
+    --z-header:  100;
+    --z-dropdown: 150;
+    --z-drawer:  200;
+    --z-modal:   300;
+    --z-toast:   400;
+    --z-splash:  500;
+}

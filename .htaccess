@@ -1,0 +1,21 @@
+# ------------------------------------------------------------------
+# Корневой .htaccess — для shared-хостинга, где нельзя сменить
+# document root на папку public/. Все запросы прозрачно уходят
+# в public/, а app/, config/, database/, storage/ остаются недоступны.
+# ------------------------------------------------------------------
+
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Служебные файлы проекта не отдаём никогда
+    RewriteRule ^(\.git|\.osp|app|config|database|storage)(/|$) - [F,L]
+    RewriteRule (^|/)\.(?!well-known) - [F,L]
+    RewriteRule \.(md|sql|ini|log|example\.php)$ - [F,L,NC]
+
+    # Всё остальное — в public/
+    RewriteRule ^$ public/ [L]
+    RewriteRule ^((?!public/).*)$ public/$1 [L]
+</IfModule>

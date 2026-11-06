@@ -1,0 +1,20 @@
+# Реальный конфиг с паролями — не в репозиторий
+/config/config.php
+
+# Логи и временные файлы
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/cache/*
+!/storage/cache/.gitkeep
+
+# Загруженные пользователями файлы
+/public/uploads/*
+!/public/uploads/.htaccess
+!/public/uploads/.gitkeep
+
+# Служебное
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
