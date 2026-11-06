@@ -6,6 +6,8 @@
     "features": {
         "ghcr.io/devcontainers/features/sshd:1": {}
     },
+    // Xdebug из базового образа на каждом запросе ищет отладчик и тормозит сайт
+    "containerEnv": { "XDEBUG_MODE": "off" },
     "forwardPorts": [8080],
     "portsAttributes": {
         "8080": { "label": "Сайт Puff Drive", "onAutoForward": "openBrowser" }
