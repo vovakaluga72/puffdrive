@@ -1,0 +1,12 @@
+.git
+.devcontainer
+.osp
+docs
+tools
+config/config.php
+storage/logs/*
+public/uploads/*
+*.md
+*.txt
+*.docx
+*.pdf

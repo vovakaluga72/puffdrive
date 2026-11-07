@@ -1,0 +1,11 @@
+# Размещение на Render.com: New → Blueprint → репозиторий vovakaluga72/puffdrive.
+# Сайт собирается из Dockerfile и обновляется сам при каждой отправке в ветку main.
+services:
+  - type: web
+    name: puffdrive
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /
